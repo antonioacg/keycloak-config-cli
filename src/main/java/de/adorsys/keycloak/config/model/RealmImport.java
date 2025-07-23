@@ -2,7 +2,7 @@
  * ---license-start
  * keycloak-config-cli
  * ---
- * Copyright (C) 2017 - 2021 adorsys GmbH & Co. KG @ https://adorsys.com
+ * Copyright (C) 2017 - 2025 adorsys GmbH & Co. KG @ https://adorsys.com
  * ---
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,6 +41,8 @@ public class RealmImport extends RealmRepresentation {
 
     private Map<String, Map<String, String>> messageBundles;
 
+    private List<OrganizationRepresentation> organizationList;
+
     private String checksum;
     private String source;
 
@@ -76,6 +78,16 @@ public class RealmImport extends RealmRepresentation {
 
     public UPConfig getUserProfile() {
         return userProfile;
+    }
+
+    public List<OrganizationRepresentation> getOrganizationList() {
+        return organizationList;
+    }
+
+    @SuppressWarnings("unused")
+    @JsonSetter("organizations")
+    public void setOrganizationList(List<OrganizationRepresentation> organizationList) {
+        this.organizationList = organizationList;
     }
 
     @JsonIgnore

@@ -1,0 +1,12 @@
+{
+  "realm": "realmWithOrganizations",
+  "enabled": true,
+  "organizationsEnabled": true,
+  "organizations": [
+    {
+      "alias": "",
+      "name": "Organization without alias",
+      "enabled": true
+    }
+  ]
+}

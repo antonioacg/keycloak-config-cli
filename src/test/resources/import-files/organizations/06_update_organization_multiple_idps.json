@@ -1,0 +1,50 @@
+{
+  "enabled": true,
+  "realm": "realmWithOrganizations",
+  "organizationsEnabled": true,
+  "organizations": [
+    {
+      "alias": "test-org",
+      "name": "Test Organization",
+      "enabled": true,
+      "description": "Test organization with mixed IdP formats",
+      "identityProviders": [
+        {
+          "alias": "saml-test",
+          "domain": "saml.example.org",
+          "redirectWhenEmailMatches": true,
+          "hideOnLogin": false
+        },
+        {
+          "alias": "keycloak-oidc",
+          "redirectWhenEmailMatches": false,
+          "hideOnLogin": true
+        }
+      ]
+    }
+  ],
+  "identityProviders": [
+    {
+      "alias": "saml-test",
+      "displayName": "SAML Test Provider",
+      "providerId": "saml",
+      "enabled": true,
+      "config": {
+        "singleSignOnServiceUrl": "https://saml.example.org/sso",
+        "entityId": "saml-test-entity"
+      }
+    },
+    {
+      "alias": "keycloak-oidc",
+      "displayName": "Keycloak OIDC Provider",
+      "providerId": "keycloak-oidc",
+      "enabled": true,
+      "config": {
+        "authorizationUrl": "https://auth.example.org/auth",
+        "tokenUrl": "https://auth.example.org/token",
+        "clientId": "keycloak-client",
+        "clientSecret": "keycloak-secret"
+      }
+    }
+  ]
+}

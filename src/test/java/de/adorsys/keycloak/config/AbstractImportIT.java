@@ -86,6 +86,11 @@ abstract public class AbstractImportIT extends AbstractImportTest {
             if (VersionUtil.lt(KEYCLOAK_VERSION, "24")) {
                 featuresBuilder.append(",declarative-user-profile");
             }
+            
+            // Add organization feature for Keycloak 26+
+            if (VersionUtil.ge(KEYCLOAK_VERSION, "26")) {
+                featuresBuilder.append(",organization");
+            }
 
             command.add(featuresBuilder.toString());
         }

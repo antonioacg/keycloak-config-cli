@@ -54,11 +54,12 @@ In some cases, it is required to include some Keycloak defaults because keycloak
 | Authentication Flows            | You have to copy the default components to your import JSON, except built-in flows.| `authentication-flow`            |
 | Identity Providers              | -                                                                                | `identity-provider`              |
 | Identity Provider Mappers       | -                                                                                | `identity-provider-mapper`       |
-| Clients                         | -                                                                                | `client`                         |
+| Clients                         | Only clients created by config-cli will be deleted (with state tracking).        | `client`                         |
 | Clients Authorization Resources  | The 'Default Resource' is always included.                                       | `client-authorization-resources` |
 | Clients Authorization Policies   | -                                                                                | `client-authorization-policies`  |
 | Clients Authorization Scopes     | -                                                                                | `client-authorization-scopes`    |
 | Message Bundles                 | Only message bundles imported with config-cli will be managed/deleted.         | `message-bundles`                |
+| Organizations                   | Only organizations created by config-cli will be deleted (with state tracking). Organizations with domains and identity provider links (Keycloak 26+ only).     | `organization`                   |
 
 ### Disabling Deletion of Managed Entities
 
@@ -70,3 +71,16 @@ import.managed.required-action=no-delete
 ### State management
 
 If `import.remote-state.enabled` is set to `true` (default value), keycloak-config-cli will purge only resources they created before by keycloak-config-cli. If `import.remote-state.enabled` is set to `false`, keycloak-config-cli will purge all existing entities if they are not defined in import json.
+
+#### State-Tracked Resources
+
+The following resources support state tracking:
+- **Clients**: Only clients created by config-cli are deleted when using full managed mode
+- **Organizations**: Only organizations created by config-cli are deleted when using full managed mode
+- **Roles**: Realm and client roles created by config-cli
+- **Components**: Components and sub-components created by config-cli
+- **Required Actions**: Required actions created by config-cli
+- **Client Authorization Resources**: Resources created by config-cli
+- **Message Bundles**: Message bundles created by config-cli
+
+This means that manually created resources (through Keycloak Admin UI or other means) will be preserved when state tracking is enabled.

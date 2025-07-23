@@ -57,6 +57,9 @@
 | Synchronize user profile                           | 5.4.0 | Synchronize the user profile configuration defined on the realm configuration                            |
 | Synchronize client-policies                        | 5.6.0 | Synchronize the client-policies (clientProfiles and clientPolicies) while updating realms                |
 | Synchronize message bundles                        | 5.12.0 | Synchronize message bundles defined on the realm configuration                                           |
+| Add organizations                                  | x.x.x | Add organizations with domains and identity provider links (Keycloak 26+ only)                           |
+| Update organizations                               | x.x.x | Update organization properties, domains, and identity provider links (Keycloak 26+ only)                 |
+| Remove organizations                               | x.x.x | Remove organizations while updating realms (Keycloak 26+ only)                                           |
 | Normalize realm exports                            | x.x.x | Normalize a full realm export to be more minimal                                                         |
 
 # Specificities
@@ -86,6 +89,76 @@ So if you need this, you have to configure it like :
   }
 }
 ```
+
+# Organizations (Keycloak 26+ only)
+
+Organizations support multi-tenancy in Keycloak by grouping users and identity providers. This feature is only available in Keycloak 26 and later versions.
+
+## Organization Configuration
+
+```json
+{
+  "organizations": [
+    {
+      "alias": "my-org",
+      "name": "My Organization",
+      "enabled": true,
+      "description": "Organization description",
+      "redirectUrl": "https://my-org.example.com",
+      "domains": [
+        {
+          "name": "my-org.com",
+          "verified": true
+        }
+      ],
+      "attributes": {
+        "key": ["value1", "value2"]
+      },
+      "identityProviders": [
+        {
+          "alias": "saml-idp",
+          "domain": "my-org.com",
+          "redirectWhenEmailMatches": true,
+          "hideOnLogin": false
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Key Features:
+- **Domains**: Organizations can have multiple domains with verification status
+- **Identity Providers**: Link existing identity providers to organizations with configuration:
+  - `alias`: The identity provider alias (required)
+  - `domain`: Domain for email-based matching (optional)
+  - `redirectWhenEmailMatches`: Auto-redirect when email domain matches (optional, default: false)
+  - `hideOnLogin`: Hide this IdP on the login page (optional, default: false)
+- **Attributes**: Support for multi-valued attributes
+- **Managed Mode**: Organizations support full/no-delete managed modes
+- **State Tracking**: When state tracking is enabled (default), only organizations created by config-cli are deleted in full managed mode. Manually created organizations are preserved.
+
+## Identity Provider Configuration
+When linking identity providers to organizations, configure each provider with:
+
+```json
+"identityProviders": [
+  {
+    "alias": "corporate-idp",
+    "domain": "corp.example.com",
+    "redirectWhenEmailMatches": true,
+    "hideOnLogin": true
+  }
+]
+```
+
+## Important Notes:
+- Organizations must be imported AFTER identity providers since they reference IdPs by alias
+- The `enabled` field defaults to `true` if not specified
+- Organization aliases are normalized (lowercase, spaces replaced with hyphens)
+- Domain names are normalized to lowercase
+- When `redirectWhenEmailMatches` is true, users with matching email domains are automatically redirected to the IdP
+- Identity provider link configurations are managed declaratively - manual changes will be overwritten on next import
 
 # User - initial password
 

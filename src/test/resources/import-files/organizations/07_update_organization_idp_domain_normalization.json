@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "realm": "realmWithOrganizations",
+  "organizationsEnabled": true,
+  "organizations": [
+    {
+      "alias": "test-org",
+      "name": "Test Organization",
+      "enabled": true,
+      "description": "Test domain normalization",
+      "identityProviders": [
+        {
+          "alias": "oidc-test",
+          "domain": "EXAMPLE.ORG",
+          "redirectWhenEmailMatches": true,
+          "hideOnLogin": false
+        }
+      ]
+    }
+  ]
+}

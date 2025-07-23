@@ -1,0 +1,6 @@
+{
+  "realm": "realmWithOrganizations",
+  "enabled": true,
+  "organizationsEnabled": true,
+  "organizations": []
+}
