@@ -31,6 +31,32 @@ The config files are based on the keycloak export files. You can use them to re-
 
 [moped.json](./contrib/example-config/moped.json) is a full working example file you can consider. Other examples are located in the [test resources](./src/test/resources/import-files).
 
+### Organizations (Keycloak 26+)
+
+Organizations can be configured to support multi-tenancy:
+
+```json
+{
+  "realm": "my-realm",
+  "organizations": [
+    {
+      "alias": "my-org",
+      "name": "My Organization",
+      "enabled": true,
+      "description": "Organization description",
+      "redirectUrl": "https://my-org.example.com",
+      "domains": [
+        {"name": "example.com", "verified": true}
+      ],
+      "attributes": {
+        "contactEmail": ["admin@example.com"]
+      },
+      "identityProviders": ["existing-idp-alias"]
+    }
+  ]
+}
+```
+
 ## Variable Substitution
 
 keycloak-config-cli supports variable substitution of config files. This could be enabled by `import.var-substitution.enabled=true` (**disabled by default**).

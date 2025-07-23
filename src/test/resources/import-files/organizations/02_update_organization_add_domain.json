@@ -1,0 +1,31 @@
+{
+  "realm": "realmWithOrganizations",
+  "enabled": true,
+  "organizations": [
+    {
+      "alias": "test-org",
+      "name": "Updated Test Organization",
+      "enabled": true,
+      "description": "An updated test organization",
+      "redirectUrl": "https://updated.test-org.com",
+      "domains": [
+        {
+          "name": "test-org.com",
+          "verified": true
+        },
+        {
+          "name": "test-org.org",
+          "verified": false
+        },
+        {
+          "name": "test-org.net",
+          "verified": true
+        }
+      ],
+      "attributes": {
+        "contactEmail": ["admin@test-org.com"],
+        "contactPhone": ["+1234567890", "+0987654321"]
+      }
+    }
+  ]
+}

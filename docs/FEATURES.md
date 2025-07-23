@@ -57,6 +57,9 @@
 | Synchronize user profile                           | 5.4.0 | Synchronize the user profile configuration defined on the realm configuration                            |
 | Synchronize client-policies                        | 5.6.0 | Synchronize the client-policies (clientProfiles and clientPolicies) while updating realms                |
 | Synchronize message bundles                        | 5.12.0 | Synchronize message bundles defined on the realm configuration                                           |
+| Add organizations                                  | x.x.x | Add organizations with domains and identity provider links (Keycloak 26+ only)                           |
+| Update organizations                               | x.x.x | Update organization properties, domains, and identity provider links (Keycloak 26+ only)                 |
+| Remove organizations                               | x.x.x | Remove organizations while updating realms (Keycloak 26+ only)                                           |
 | Normalize realm exports                            | x.x.x | Normalize a full realm export to be more minimal                                                         |
 
 # Specificities
@@ -86,6 +89,48 @@ So if you need this, you have to configure it like :
   }
 }
 ```
+
+# Organizations (Keycloak 26+ only)
+
+Organizations support multi-tenancy in Keycloak by grouping users and identity providers. This feature is only available in Keycloak 26 and later versions.
+
+## Organization Configuration
+
+```json
+{
+  "organizations": [
+    {
+      "alias": "my-org",
+      "name": "My Organization",
+      "enabled": true,
+      "description": "Organization description",
+      "redirectUrl": "https://my-org.example.com",
+      "domains": [
+        {
+          "name": "my-org.com",
+          "verified": true
+        }
+      ],
+      "attributes": {
+        "key": ["value1", "value2"]
+      },
+      "identityProviders": ["saml-idp", "oidc-idp"]
+    }
+  ]
+}
+```
+
+## Key Features:
+- **Domains**: Organizations can have multiple domains with verification status
+- **Identity Providers**: Link existing identity providers to organizations by their alias
+- **Attributes**: Support for multi-valued attributes
+- **Managed Mode**: Organizations support full/no-delete managed modes
+
+## Important Notes:
+- Organizations must be imported AFTER identity providers since they reference IdPs by alias
+- The `enabled` field defaults to `true` if not specified
+- Organization aliases are normalized (lowercase, spaces replaced with hyphens)
+- Domain names are normalized to lowercase
 
 # User - initial password
 

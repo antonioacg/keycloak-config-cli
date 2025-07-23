@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Add support for managing Organizations (Keycloak 26+ only) [#1286](https://github.com/adorsys/keycloak-config-cli/issues/1286)
+  - Create, update, and delete organizations with domains and attributes
+  - Link identity providers to organizations
+  - Support for managed properties (full/no-delete modes)
+  - Automatic normalization of organization data
 
 ## [6.4.0] - 2025-02-21
 ### Added
