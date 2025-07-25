@@ -20,6 +20,7 @@
 
 package de.adorsys.keycloak.config.service.state;
 
+import de.adorsys.keycloak.config.model.OrganizationRepresentation;
 import de.adorsys.keycloak.config.model.RealmImport;
 import de.adorsys.keycloak.config.properties.ImportConfigProperties;
 import de.adorsys.keycloak.config.repository.StateRepository;
@@ -76,6 +77,7 @@ public class StateService {
         setComponents(realmImport);
         setClientAuthorizationResources(realmImport);
         setMessageBundles(realmImport);
+        setOrganizations(realmImport);
 
         stateRepository.update(realmImport);
         logger.debug("Updated states of realm '{}'", realmImport.getRealm());
@@ -167,6 +169,10 @@ public class StateService {
         return stateRepository.getState("clients");
     }
 
+    public List<String> getOrganizations() {
+        return stateRepository.getState("organizations");
+    }
+
     private void setRequiredActions(RealmImport realmImport) {
         List<RequiredActionProviderRepresentation> requiredActions = realmImport.getRequiredActions();
         if (requiredActions == null) return;
@@ -236,5 +242,16 @@ public class StateService {
 
     public List<String> getMessageBundles() {
         return stateRepository.getState("message-bundles");
+    }
+
+    private void setOrganizations(RealmImport realmImport) {
+        List<OrganizationRepresentation> organizations = realmImport.getOrganizationList();
+        if (organizations == null) return;
+
+        List<String> state = organizations.stream()
+                .map(OrganizationRepresentation::getAlias)
+                .toList();
+
+        stateRepository.setState("organizations", state);
     }
 }

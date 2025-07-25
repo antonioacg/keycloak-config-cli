@@ -1,0 +1,21 @@
+{
+  "realm": "realmWithOrganizations",
+  "enabled": true,
+  "organizationsEnabled": true,
+  "organizations": [
+    {
+      "alias": "test-org",
+      "name": "Updated Test Organization",
+      "enabled": true,
+      "description": "An updated test organization",
+      "redirectUrl": "https://updated.test-org.com",
+      "domains": [
+        {
+          "name": "test-org.com",
+          "verified": true
+        }
+      ],
+      "identityProviders": ["non-existent-idp"]
+    }
+  ]
+}

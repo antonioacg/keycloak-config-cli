@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "realm": "realmWithOrganizations",
+  "organizationsEnabled": true,
+  "organizations": [
+    {
+      "alias": "test-org",
+      "name": "Test Organization",
+      "enabled": true,
+      "description": "Test organization with no IdPs",
+      "identityProviders": []
+    }
+  ]
+}

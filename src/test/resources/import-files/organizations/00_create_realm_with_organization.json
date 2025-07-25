@@ -1,0 +1,28 @@
+{
+  "realm": "realmWithOrganizations",
+  "enabled": true,
+  "organizationsEnabled": true,
+  "organizations": [
+    {
+      "alias": "test-org",
+      "name": "Test Organization",
+      "enabled": true,
+      "description": "A test organization",
+      "redirectUrl": "https://test-org.example.com",
+      "domains": [
+        {
+          "name": "test-org.com",
+          "verified": true
+        },
+        {
+          "name": "test-org.org",
+          "verified": false
+        }
+      ],
+      "attributes": {
+        "contactEmail": ["admin@test-org.com"],
+        "contactPhone": ["+1234567890", "+0987654321"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "enabled": true,
+  "realm": "realmWithOrganizations",
+  "organizationsEnabled": true,
+  "organizations": [
+    {
+      "alias": "test-org",
+      "name": "Test Organization",
+      "enabled": true,
+      "description": "Test organization for integration tests",
+      "domains": [
+        {
+          "name": "example.org",
+          "verified": true
+        }
+      ],
+      "identityProviders": [
+        {
+          "alias": "oidc-test",
+          "domain": "modified.example.org",
+          "redirectWhenEmailMatches": false,
+          "hideOnLogin": false
+        }
+      ]
+    }
+  ]
+}

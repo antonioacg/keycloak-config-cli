@@ -26,9 +26,14 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
 
 @Configuration
-@ComponentScan(basePackages = {"de.adorsys.keycloak.config"})
+@ComponentScan(basePackages = {"de.adorsys.keycloak.config"}, 
+        excludeFilters = @ComponentScan.Filter(
+                type = FilterType.REGEX,
+                pattern = "de.adorsys.keycloak.config.repository.Organization.*"
+        ))
 @EnableConfigurationProperties({NormalizationKeycloakConfigProperties.class, NormalizationConfigProperties.class})
 @ConditionalOnProperty(prefix = "run", name = "operation", havingValue = "NORMALIZE")
 public class NormalizeTestConfiguration {
